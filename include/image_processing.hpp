@@ -5,6 +5,9 @@
 
 #include "opencv2/core/core.hpp"
 
+#include"opencv2\opencv.hpp"
+
+
 class ImageProcessor {
  public:
    virtual cv::Mat CvtColor(const cv::Mat &src, const cv::Rect &roi) = 0;
@@ -15,4 +18,19 @@ class ImageProcessor {
      const int kernelSize) = 0;
    virtual cv::Mat Pixelize(const cv::Mat &src, const cv::Rect &roi, 
      const int kDivs) = 0;
+};
+
+class ImageProcessorImpl : public ImageProcessor {
+public:
+	virtual cv::Mat CvtColor(const cv::Mat &src, const cv::Rect &roi);
+	
+	virtual cv::Mat Filter(const cv::Mat &src, const cv::Rect &roi,
+		const int size);
+	
+	virtual cv::Mat DetectEdges(const cv::Mat &src, const cv::Rect &roi,
+		const int filter_size, const int low_threshold,
+		const int ratio, const int kernel_size);
+	
+	virtual cv::Mat Pixelize(const cv::Mat &src, const cv::Rect &roi,
+		const int divs);
 };
